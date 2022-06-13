@@ -9,9 +9,16 @@ This project uses OpenCV for image processes and GMP for multiple-precision arit
 ## Usage
 Once compiled usage is very simple:
 ```
-./im2prime [imagename.png] [number of digits]
+./im2prime [imagename.png] [OPTIONS]
+
+  OPTIONAL ARGUMENTS
+  -n    number of digits - limits the size of the output image to a prespecified number of digits
+  -s    number to skip - skips the first 's' digits to test. Useful for stopping and restarting. E.g. if you stop at "Total test 100" you can set -s100.
+  -t    number of threads - will split the load across this many threads
+  -g    group size - will send this many numbers to test to each thread
+
 ```
-Number of digits is *not* required. If not specified (or specified as 0) the output image will aim to be the same resolution of the input image. Each number is embedded into 3x5 pixels, with a 1 pixel padding around the outside (effectively 5x7 pixels per digit). The program will try it's best to stick to the number of digits with the same aspect ratio of the input image.
+If number of digits is not specified (or specified as 0) the output image will aim to be the same resolution of the input image. Each number is embedded into 3x5 pixels, with a 1 pixel padding around the outside (effectively 5x7 pixels per digit). The program will try it's best to stick to the number of digits with the same aspect ratio of the input image.
 
 ## Primality testing
 
@@ -31,9 +38,5 @@ For example - an image which is 1920x1080 will be automatically converted to a n
 
 ## TODO
 
- - Better input parsing. It's quite elementary at this stage and needs to be much better. Does not check whether the inputs make sense or not.
- - Skip input. This will be useful if for whatever reason you need to stop processing on a particularly large number and resume state.
  - Text output of number. This feels pretty important I just haven't had the time to add it yet.
  - GPU implementation. I know there are CUDA implementations of MPA systems (e.g. CUMP) however I hate the idea of supporting hardware limited programs. I plan to build what I can in OpenCL but this may be a long time coming.
-
-

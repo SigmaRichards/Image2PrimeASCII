@@ -5,6 +5,6 @@
 #include <string>
 #include <stdio.h>
 
-std::vector<std::string> prime_string(std::vector<std::string> vv);
+std::vector<std::string> prime_string(std::vector<std::string> vv,int num_skip,int num_threads,int num_samps);
 
 #endif

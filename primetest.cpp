@@ -68,7 +68,7 @@ int prime_func(const char* refc, std::vector<int> tests){
   return out;
 }
 
-std::string do_prime_check(std::string start,int n_threads, int n_samps){
+std::string do_prime_check(std::string start,int n_threads, int n_samps,int num_skip){
   auto rng = std::default_random_engine {};
   if(((start[start.length()-1] - '0')%2)==0){
     start[start.length()-1] = (start[start.length()-1] + 1);
@@ -76,8 +76,8 @@ std::string do_prime_check(std::string start,int n_threads, int n_samps){
   const char* ref = start.c_str();
   int prime_index = -1;
   int thread_ind = -1;
-  int last_num = -2;
-  int num_tested = 0;
+  int last_num = 2*num_skip;
+  int num_tested = num_skip;
   std::vector<std::vector<int>> split_samps;
 
   std::cout<<"Test batch size: "<<n_samps*n_threads<<std::endl;
@@ -182,12 +182,12 @@ std::vector<std::string> str2vec(std::string str,int len){
   return out;
 }
 
-std::vector<std::string> prime_string(std::vector<std::string> vv){
+std::vector<std::string> prime_string(std::vector<std::string> vv,int num_skip,int num_threads,int num_samps){
   srand(time(NULL));
 
   std::string str = vec2str(vv);
   //std::string test = is_prime(str);
-  std::string test = do_prime_check(str,12,10);
+  std::string test = do_prime_check(str,num_threads,num_samps,num_skip);
   std::vector<std::string> out = str2vec(test,vv[0].length());
   //bigint out_i = get_prime(c_bint,1,ndig);
   //std::vector<std::string> out = bi2str(out_i,vv[0].length());
